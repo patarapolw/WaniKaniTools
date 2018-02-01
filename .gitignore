@@ -130,3 +130,6 @@ Temporary Items
 
 # Secret
 cred/
+
+# PyCharm
+.idea/
