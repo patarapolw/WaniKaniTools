@@ -32,6 +32,10 @@ class v2:
         r = self.session.get("https://www.wanikani.com/api/v2/{}/{}".format(resource, argument), params=params)
         return json.loads(r.text)
 
+    def GETurl(self, url):
+        r = self.session.get(url)
+        return json.loads(r.text)
+
 
 if __name__ == '__main__':
     os.chdir('..')

@@ -31,4 +31,4 @@ if __name__ == '__main__':
             if next_url is None:
                 break
 
-            result = json.loads(api_v2.session.get(next_url).text)
+            result = api_v2.GETurl(next_url)
