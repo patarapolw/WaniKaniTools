@@ -96,7 +96,6 @@ The operations supported here are the same as `selenium-webdriver`
 ```python
 from web import login
 
-with login.web() as w:
+with login.web(your_username, your_password) as w:
     w.driver.execute_script(put_your_javascript_here)
 ```
-
