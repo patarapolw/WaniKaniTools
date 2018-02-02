@@ -7,6 +7,7 @@ class discourse:
     def __init__(self, username='', password=''):
         with login.web(username, password) as w:
             w.driver.get('https://community.wanikani.com')
+            w.driver.find_element_by_class_name('btn-primary').click()
             cookie = w.driver.get_cookies()
             self.session = requests.Session()
             c = [self.session.cookies.set(c['name'], c['value']) for c in cookie]
@@ -35,11 +36,11 @@ if __name__ == '__main__':
         'top', # Get the top topics
         'top/{}'.format(flag[0]), # Get the top topics filtered by specified flag
         'post/{}'.format(id), # Get a single post
-        'user/{}'.format(username), # Get a single user by username
+        'users/{}'.format(username), # Get a single user by username
         'directory_items', # get a public list of users. Requires params: period, order
         'admin/users/list/{}'.format(flag), # returns a list of users
         'user_actions',
 
     )
 
-    print(board.GET('categories'))
+    print(board.GET('users/polv'))

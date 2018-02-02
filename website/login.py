@@ -6,6 +6,7 @@ import json, os
 class web():
     def __init__(self, username='', password=''):
         self.driver = webdriver.PhantomJS()
+        # self.driver = webdriver.Firefox()
         site = 'https://www.wanikani.com/login'
         self.driver.get(site)
 
