@@ -107,6 +107,6 @@ with login.web(your_username, your_password) as w:
 ```python
 from community import community
 
-with community.discourse(your_username, your_password) as board:
-    board.GET('user/polv')
+board = community.discourse(your_username, your_password)
+board.GET('user/polv')
 ```
