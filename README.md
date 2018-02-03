@@ -5,11 +5,13 @@ The following operations are supported by WaniKaniTools
 * API v1 wrapper
 * API v2 wrapper, and support for pagination
 * Web login using `PhantomJS` and able to both `execute_script()` and `click()` buttons accordingly
+* Community webboard operations, via Discourse REST API
 
 Sample working scripts are
 
 * `burnManager.py`
 * `database/create.py`
+* `community/community.py`
 
 However, it is not yet tested on Python2.
 
@@ -98,4 +100,13 @@ from web import login
 
 with login.web(your_username, your_password) as w:
     w.driver.execute_script(put_your_javascript_here)
+```
+
+### Meddling with Community webboard (community.wanikani.com)
+
+```python
+from community import community
+
+with community.discourse(your_username, your_password) as board:
+    board.GET('user/polv')
 ```
