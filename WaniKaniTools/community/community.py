@@ -1,6 +1,6 @@
 import os
 import requests
-from website import login
+from WaniKaniTools.website import login
 from time import time
 
 class discourse:

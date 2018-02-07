@@ -9,14 +9,15 @@ The following operations are supported by WaniKaniTools
 Sample working scripts are
 
 * `burnManager.py`
-* `database/create.py`
+* `WaniKaniTools/database/create.py`
+* `example/multiple_readings.py`
 
 However, it is not yet tested on Python2.
 
 ## Using API v1
 
 ```python
-from api import api
+from WaniKaniTools.api import api
 
 resource = (
     'user-information',
@@ -38,7 +39,7 @@ result = api_v1.GET(resource[2])['requested_information'] # Output is Python dic
 ### Basic operations
 
 ```python
-from api import api
+from WaniKaniTools.api import api
 
 resource_v2 = (
     'user',
@@ -58,7 +59,7 @@ result = api_v2.GET(resource_v2[1]) # Output is Python dictionary
 ### Pagination
 
 ```python
-from api import api
+from WaniKaniTools.api import api
 
 api_v2 = api.v2(put_your_api_v2_key_here)
 result = api_v2.GET('subjects')
@@ -94,7 +95,7 @@ while True:
 The operations supported here are the same as `selenium-webdriver`
 
 ```python
-from web import login
+from WaniKaniTools.website import login
 
 with login.web(your_username, your_password) as w:
     w.driver.execute_script(put_your_javascript_here)

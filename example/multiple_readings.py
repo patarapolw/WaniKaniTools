@@ -1,8 +1,7 @@
-import json
 import jaconv
 import os
 os.chdir('..')
-from api import api
+from WaniKaniTools.api import api
 
 api_v2 = api.v2()
 result = api_v2.GET('subjects', params={'types':'vocabulary'})
