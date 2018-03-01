@@ -12,7 +12,11 @@ Sample working scripts are
 * `WaniKaniTools/database/create.py`
 * `example/multiple_readings.py`
 
-However, it is not yet tested on Python2.
+## Installation
+
+1. For Mac OSX, `brew install phantomjs`. I am not sure about Windows, or other OS's, but you'll need PhantomJS for the web login, burnManager and Community.
+2. `pip install WaniKaniTools`
+```
 
 ## Using API v1
 
