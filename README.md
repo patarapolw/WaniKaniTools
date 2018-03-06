@@ -100,6 +100,6 @@ The operations supported here are the same as `selenium-webdriver`
 ```python
 from WaniKaniTools.website import login
 
-with login.web(your_username, your_password) as w:
+with login.Webdriver(your_username, your_password) as w:
     w.driver.execute_script(put_your_javascript_here)
 ```

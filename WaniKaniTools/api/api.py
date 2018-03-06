@@ -28,7 +28,9 @@ class v2:
         with requests.Session() as self.session:
             self.session.headers.update(HEADERS)
 
-    def GET(self, resource, argument='', params={}):
+    def GET(self, resource, argument='', params=None):
+        if params is None:
+            params = dict()
         r = self.session.get("https://www.wanikani.com/api/v2/{}/{}".format(resource, argument), params=params)
         return json.loads(r.text)
 

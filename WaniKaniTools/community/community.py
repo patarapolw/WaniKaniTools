@@ -5,14 +5,16 @@ from time import time
 
 class discourse:
     def __init__(self, username='', password=''):
-        with login.web(username, password) as w:
+        with login.Webdriver(username, password) as w:
             w.driver.get('https://community.wanikani.com')
             w.driver.find_element_by_class_name('btn-primary').click()
             cookie = w.driver.get_cookies()
             self.session = requests.Session()
             c = [self.session.cookies.set(c['name'], c['value']) for c in cookie]
 
-    def GET(self, end_point, params={}):
+    def GET(self, end_point, params=None):
+        if params is None:
+            params = dict()
         url = 'https://community.wanikani.com/{}.json'.format(end_point)
         response = self.session.get(url, params=params)
         return response.text
