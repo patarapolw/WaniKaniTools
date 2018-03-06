@@ -1,15 +1,10 @@
-from selenium import webdriver
 import requests
 import json, os
+from bs4 import BeautifulSoup
 
 
 class web():
     def __init__(self, username='', password=''):
-        self.driver = webdriver.PhantomJS()
-        # self.driver = webdriver.Firefox()
-        site = 'https://www.wanikani.com/login'
-        self.driver.get(site)
-
         if username == '':
             with open(os.path.join('cred', 'login.json')) as f:
                 login = json.load(f)
@@ -19,27 +14,32 @@ class web():
                 'password': password
             }
 
-        self.driver.find_element_by_id("user_login").send_keys(login['username'])
-        self.driver.find_element_by_id("user_password").send_keys(login['password'])
-        self.driver.find_element_by_class_name("button").click()
+        url = 'https://www.wanikani.com/login'
 
-        cookie = self.driver.get_cookies()
         self.session = requests.Session()
-        c = [self.session.cookies.set(c['name'], c['value']) for c in cookie]
+        r = self.session.get(url)
 
-    def logout(self):
-        self.driver.quit()
+        soup = BeautifulSoup(r.text, 'html.parser')
+
+        login_data = {
+            'utf8': "✓",
+            'authenticity_token': soup.find('input', {'name': 'authenticity_token'})['value'],
+            'user[login]': 'patarapolw@gmail.com',
+            'user[password]': '4114951gu3',
+            'user[remember_me]': 0
+        }
+        self.session.post(url, data=login_data)
 
     def __enter__(self):
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.driver.quit()
+        pass
 
 
 if __name__ == '__main__':
-    os.chdir('..')
+    os.chdir('../..')
 
     with web() as w:
         result = w.session.get('https://www.wanikani.com/dashboard')
-        print(result)
+        print(result.text)
