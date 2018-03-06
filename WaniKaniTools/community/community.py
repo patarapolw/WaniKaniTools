@@ -1,17 +1,21 @@
 import os
 from WaniKaniTools.website.login import Requests, Webdriver
-from time import time
-import requests
 
-class discourse:
+
+class Discourse:
     def __init__(self, username='', password=''):
         # self.session = Requests(username, password).session
         # r = self.session.get('https://community.wanikani.com/login')
+        # r.html.render()
+        # SESSION_COOKIE = r.cookies
+        # self.session.post('https://community.wanikani.com/login', cookies=SESSION_COOKIE)
+
         with Webdriver(username, password) as w:
             w.driver.get('https://community.wanikani.com/login')
             cookie = w.driver.get_cookies()
-            self.session = requests.session()
-            c = [self.session.cookies.set(c['name'], c['value']) for c in cookie]
+            self.session = Requests(username, password).session
+            for c in cookie:
+                self.session.cookies.set(c['name'], c['value'])
 
     def GET(self, end_point, params=None):
         if params is None:
@@ -23,10 +27,11 @@ class discourse:
 
 
 if __name__ == '__main__':
+    from time import time
     os.chdir('../..')
 
     start = time()
-    board = discourse()
+    board = Discourse()
     print('Time elasped: {} seconds'.format(time()-start)) # 56.1 seconds
 
     id = 10

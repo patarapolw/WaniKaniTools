@@ -9,9 +9,15 @@ except ImportError:
 
 class Webdriver:
     def __init__(self, username='', password=''):
-        options = webdriver.FirefoxOptions()
-        options.add_argument('--headless')
-        self.driver = webdriver.Firefox(firefox_options=options)
+        try:
+            options = webdriver.FirefoxOptions()
+            options.add_argument('--headless')
+            self.driver = webdriver.Firefox(firefox_options=options)
+        except FileNotFoundError:
+            options = webdriver.ChromeOptions()
+            options.add_argument('--headless')
+            self.driver = webdriver.Chrome(chrome_options=options)
+
         site = 'https://www.wanikani.com/login'
         self.driver.get(site)
 
@@ -60,14 +66,14 @@ class Requests:
             r = self.session.get(url)
             auth_token = BeautifulSoup(r.text, 'html.parser').find('input', {'name': 'authenticity_token'})
 
-        login_data = {
+        self.login_data = {
             'utf8': "✓",
             'authenticity_token': auth_token,
             'user[login]': login['username'],
             'user[password]': login['password'],
             'user[remember_me]': 0
         }
-        self.session.post(url, data=login_data)
+        self.session.post(url, data=self.login_data)
 
 
 if __name__ == '__main__':
