@@ -1,16 +1,16 @@
 import os
 from WaniKaniTools.website.login import Requests, Webdriver
 from time import time
+import requests
 
 class discourse:
     def __init__(self, username='', password=''):
         # self.session = Requests(username, password).session
         # r = self.session.get('https://community.wanikani.com/login')
         with Webdriver(username, password) as w:
-            w.driver.get('https://community.wanikani.com')
-            w.driver.find_element_by_class_name('btn-primary').click()
+            w.driver.get('https://community.wanikani.com/login')
             cookie = w.driver.get_cookies()
-            self.session = Requests(username, password).session
+            self.session = requests.session()
             c = [self.session.cookies.set(c['name'], c['value']) for c in cookie]
 
     def GET(self, end_point, params=None):
