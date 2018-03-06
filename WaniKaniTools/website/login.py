@@ -1,7 +1,10 @@
 from selenium import webdriver
-import requests
 import json, os
-from bs4 import BeautifulSoup
+try:
+    from requests_html import HTMLSession
+except ImportError:
+    import requests
+    from bs4 import BeautifulSoup
 
 
 class Webdriver:
@@ -48,14 +51,18 @@ class Requests:
 
         url = 'https://www.wanikani.com/login'
 
-        self.session = requests.Session()
-        r = self.session.get(url)
-
-        soup = BeautifulSoup(r.text, 'html.parser')
+        try:
+            self.session = HTMLSession()
+            r = self.session.get(url)
+            auth_token = r.html.xpath('//input[@name="authenticity_token"]', first=True).attrs['value'],
+        except NameError:
+            self.session = requests.Session()
+            r = self.session.get(url)
+            auth_token = BeautifulSoup(r.text, 'html.parser').find('input', {'name': 'authenticity_token'})
 
         login_data = {
             'utf8': "✓",
-            'authenticity_token': soup.find('input', {'name': 'authenticity_token'})['value'],
+            'authenticity_token': auth_token,
             'user[login]': login['username'],
             'user[password]': login['password'],
             'user[remember_me]': 0
