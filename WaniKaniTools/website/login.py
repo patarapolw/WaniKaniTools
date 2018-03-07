@@ -55,15 +55,16 @@ class Requests:
                 'password': password
             }
 
-        url = 'https://www.wanikani.com/login'
+        community_login = 'https://community.wanikani.com/session/sso'
+        wanikani_login = 'https://www.wanikani.com/login'
 
         try:
             self.session = HTMLSession()
-            r = self.session.get(url)
+            r = self.session.get(community_login)
             auth_token = r.html.xpath('//input[@name="authenticity_token"]', first=True).attrs['value'],
         except NameError:
             self.session = requests.Session()
-            r = self.session.get(url)
+            r = self.session.get(community_login)
             auth_token = BeautifulSoup(r.text, 'html.parser').find('input', {'name': 'authenticity_token'})
 
         self.login_data = {
@@ -73,7 +74,7 @@ class Requests:
             'user[password]': login['password'],
             'user[remember_me]': 0
         }
-        self.session.post(url, data=self.login_data)
+        self.session.post(wanikani_login, data=self.login_data)
 
 
 if __name__ == '__main__':
