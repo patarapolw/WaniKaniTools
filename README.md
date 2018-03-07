@@ -16,7 +16,7 @@ Sample working scripts are in `example/`
 ## Using API v1
 
 ```python
-from WaniKaniTools.api import api
+from WaniKaniTools import api
 
 resource = (
     'user-information',
@@ -38,7 +38,7 @@ result = api_v1.GET(resource[2])['requested_information'] # Output is Python dic
 ### Basic operations
 
 ```python
-from WaniKaniTools.api import api
+from WaniKaniTools import api
 
 resource_v2 = (
     'user',
@@ -58,7 +58,7 @@ result = api_v2.GET(resource_v2[1]) # Output is Python dictionary
 ### Pagination
 
 ```python
-from WaniKaniTools.api import api
+from WaniKaniTools import api
 
 api_v2 = api.v2(put_your_api_v2_key_here)
 result = api_v2.GET('subjects')
