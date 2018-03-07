@@ -4,7 +4,8 @@ The following operations are supported by WaniKaniTools
 
 * API v1 wrapper
 * API v2 wrapper, and support for pagination
-* Web login using `PhantomJS` and able to both `execute_script()` and `click()` buttons accordingly
+* Web login, and community login using `requests`
+* Web login using `Chrome / Firefox` and able to both `execute_script()` and `click()` buttons accordingly
 
 Sample working scripts are in `example/`
 
