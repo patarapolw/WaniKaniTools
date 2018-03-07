@@ -6,16 +6,11 @@ The following operations are supported by WaniKaniTools
 * API v2 wrapper, and support for pagination
 * Web login using `PhantomJS` and able to both `execute_script()` and `click()` buttons accordingly
 
-Sample working scripts are
-
-* `burnManager.py`
-* `WaniKaniTools/database/create.py`
-* `example/multiple_readings.py`
+Sample working scripts are in `example/`
 
 ## Installation
 
-1. For Mac OSX, `brew install phantomjs`. I am not sure about Windows, or other OS's, but you'll need PhantomJS for the web login, burnManager and Community.
-2. `pip install WaniKaniTools`
+`pip install WaniKaniTools`
 
 ## Using API v1
 
@@ -93,9 +88,18 @@ while True:
 
 ## Simulating web login
 
+### Web login with requests
+
+This is possible for most operations, including Discourse API, Burn Manager.
+
+```python
+from WaniKaniTools.website import login
+s = login.Requests(your_username, your_password).session
+```
+
 ### Web login and execute script
 
-The operations supported here are the same as `selenium-webdriver`
+The operations supported here are the same as `selenium-webdriver`. Default uses Firefox's Geckodriver.
 
 ```python
 from WaniKaniTools.website import login
