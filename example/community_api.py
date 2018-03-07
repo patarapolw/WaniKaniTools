@@ -1,27 +1,11 @@
-from WaniKaniTools.website.login import Requests, Webdriver
-
-
-class Discourse:
-    def __init__(self, username='', password=''):
-        self.session = Requests(username, password).session
-
-    def GET(self, end_point, params=None):
-        if params is None:
-            params = dict()
-        url = 'https://community.wanikani.com/{}.json'.format(end_point)
-        # print(url)
-        response = self.session.get(url, params=params)
-        return response.text
+from WaniKaniTools.community import Discourse
 
 
 if __name__ == '__main__':
     import os
-    from time import time
-    os.chdir('../..')
+    os.chdir('..')
 
-    start = time()
     board = Discourse()
-    print('Time elasped: {} seconds'.format(time()-start))
 
     id = 10
     flag = ("all", "yearly", "quarterly", "monthly", "weekly", "daily")

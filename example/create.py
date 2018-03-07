@@ -2,7 +2,7 @@ import os
 
 if __name__ == '__main__':
     os.chdir('..')
-    from WaniKaniTools.api import api
+    from WaniKaniTools import api
 
     api_v2 = api.v2()
     result = api_v2.GET('subjects')

@@ -61,24 +61,18 @@ class Requests:
         try:
             self.session = HTMLSession()
             r = self.session.get(community_login)
-            auth_token = r.html.xpath('//input[@name="authenticity_token"]', first=True).attrs['value'],
+            self.auth_token = r.html.find('input[@name="authenticity_token"]', first=True).attrs['value']
         except NameError:
             self.session = requests.Session()
             r = self.session.get(community_login)
-            auth_token = BeautifulSoup(r.text, 'html.parser').find('input', {'name': 'authenticity_token'})
+            self.auth_token = BeautifulSoup(r.text, 'html.parser')\
+                .find('input[@name="authenticity_token"]').attrs['value']
 
         self.login_data = {
             'utf8': "✓",
-            'authenticity_token': auth_token,
+            'authenticity_token': self.auth_token,
             'user[login]': login['username'],
             'user[password]': login['password'],
             'user[remember_me]': 0
         }
         self.session.post(wanikani_login, data=self.login_data)
-
-
-if __name__ == '__main__':
-    os.chdir('../..')
-
-    result = Requests().session.get('https://community.wanikani.com')
-    print(result.text)
