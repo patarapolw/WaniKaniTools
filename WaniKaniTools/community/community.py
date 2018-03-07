@@ -1,4 +1,3 @@
-import os
 from WaniKaniTools.website.login import Requests, Webdriver
 
 
@@ -16,6 +15,7 @@ class Discourse:
 
 
 if __name__ == '__main__':
+    import os
     from time import time
     os.chdir('../..')
 
