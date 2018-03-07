@@ -2,9 +2,6 @@ from WaniKaniTools.community import Discourse
 
 
 if __name__ == '__main__':
-    import os
-    os.chdir('..')
-
     board = Discourse()
 
     id = 10

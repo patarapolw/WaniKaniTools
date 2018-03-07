@@ -1,4 +1,4 @@
-from WaniKaniTools.api import __init__
+from WaniKaniTools import api
 
 if __name__ == '__main__':
     import os
@@ -16,7 +16,7 @@ if __name__ == '__main__':
         'kanji',
         'vocabulary'
     )
-    api_v1 = __init__.v1()
+    api_v1 = api.v1()
     result = api_v1.GET(resource[2])['requested_information']
     print(result)
 
@@ -32,7 +32,9 @@ if __name__ == '__main__':
         'level_progressions',
         'resets'
     )
-    api_v2 = __init__.v2()
+    api_v2 = api.v2()
     result = api_v2.GET(resource_v2[1])
 
     print(result)
+
+    # api_v2.GETurl also available: api_v2.GETurl(next_url)

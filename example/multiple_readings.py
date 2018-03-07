@@ -1,6 +1,4 @@
 import jaconv
-import os
-os.chdir('..')
 from WaniKaniTools import api
 
 api_v2 = api.v2()
