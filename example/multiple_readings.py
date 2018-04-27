@@ -1,35 +1,37 @@
 import jaconv
 from WaniKaniTools import api
 
-api_v2 = api.v2()
-result = api_v2.GET('subjects', params={'types':'vocabulary'})
 
-# print(json.dumps(result, indent=4))
-while True:
-    for data in result['data']:
-        reading_array = set()
-        for reading in data["data"]["readings"]:
-            # if reading['primary']:
-                reading_array.add(jaconv.kata2hira(reading['reading']))
+if __name__ == '__main__':
+    api_v2 = api.v2()
+    result = api_v2.GET('subjects', params={'types':'vocabulary'})
 
-        if len(reading_array) == 1:
-            continue
+    # print(json.dumps(result, indent=4))
+    while True:
+        for data in result['data']:
+            reading_array = set()
+            for reading in data["data"]["readings"]:
+                # if reading['primary']:
+                    reading_array.add(jaconv.kata2hira(reading['reading']))
 
-        meaning_array = []
-        for meaning in data["data"]["meanings"]:
-            if meaning['primary']:
-                meaning_array += [meaning['meaning']]
+            if len(reading_array) == 1:
+                continue
 
-        to_print = (
-            data["data"]["characters"] if "characters" in data["data"] else data["data"]["character"],
-            ', '.join(reading_array),
-            ', '.join(meaning_array)
-        )
-        print('\t'.join(to_print))
+            meaning_array = []
+            for meaning in data["data"]["meanings"]:
+                if meaning['primary']:
+                    meaning_array += [meaning['meaning']]
 
-    next_url = result['pages']['next_url']
+            to_print = (
+                data["data"]["characters"] if "characters" in data["data"] else data["data"]["character"],
+                ', '.join(reading_array),
+                ', '.join(meaning_array)
+            )
+            print('\t'.join(to_print))
 
-    if next_url is None:
-        break
+        next_url = result['pages']['next_url']
 
-    result = api_v2.GETurl(next_url)
+        if next_url is None:
+            break
+
+        result = api_v2.GETurl(next_url)

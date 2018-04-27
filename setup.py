@@ -18,5 +18,5 @@ setup(
     keywords='WaniKani',
     packages=['WaniKaniTools'],
     python_requires='>=2.7',
-    install_requires=['requests', 'bs4', 'selenium'],
+    install_requires=['requests', 'bs4', 'selenium', 'jaconv'],
 )
