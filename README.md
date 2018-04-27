@@ -1,5 +1,7 @@
 # How to use WaniKaniTools
 
+[![Build Status](https://travis-ci.org/patarapolw/WaniKaniTools.svg?branch=master)](https://travis-ci.org/patarapolw/WaniKaniTools)
+
 The following operations are supported by WaniKaniTools
 
 * API v1 wrapper
