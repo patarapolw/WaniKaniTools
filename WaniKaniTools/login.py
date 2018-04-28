@@ -1,16 +1,20 @@
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
-import json, os
 import requests
 from bs4 import BeautifulSoup
 try:
     from requests_html import HTMLSession
 except ImportError:
     pass
+import os
 
 
 class Webdriver:
-    def __init__(self, username='', password=''):
+    def __init__(self, username=None, password=''):
+        if username is None:
+            username = os.environ['USERNAME']
+            password = os.environ['PASSWORD']
+
         try:
             options = webdriver.ChromeOptions()
             options.add_argument('--headless')
@@ -20,21 +24,11 @@ class Webdriver:
             options.add_argument('--headless')
             self.driver = webdriver.Firefox(firefox_options=options)
 
-
         site = 'https://www.wanikani.com/login'
         self.driver.get(site)
 
-        if username == '':
-            with open(os.path.join('cred', 'login.json')) as f:
-                login = json.load(f)
-        else:
-            login = {
-                'username': username,
-                'password': password
-            }
-
-        self.driver.find_element_by_id("user_login").send_keys(login['username'])
-        self.driver.find_element_by_id("user_password").send_keys(login['password'])
+        self.driver.find_element_by_id("user_login").send_keys(username)
+        self.driver.find_element_by_id("user_password").send_keys(password)
         self.driver.find_element_by_class_name("button").click()
 
     def logout(self):
@@ -48,15 +42,10 @@ class Webdriver:
 
 
 class RequestsHtml:
-    def __init__(self, username='', password=''):
-        if username == '':
-            with open(os.path.join('cred', 'login.json')) as f:
-                login = json.load(f)
-        else:
-            login = {
-                'username': username,
-                'password': password
-            }
+    def __init__(self, username=None, password=''):
+        if username is None:
+            username = os.environ['USERNAME']
+            password = os.environ['PASSWORD']
 
         community_login = 'https://community.wanikani.com/session/sso'
         wanikani_login = 'https://www.wanikani.com/login'
@@ -68,23 +57,18 @@ class RequestsHtml:
         self.login_data = {
             'utf8': "✓",
             'authenticity_token': self.auth_token,
-            'user[login]': login['username'],
-            'user[password]': login['password'],
+            'user[login]': username,
+            'user[password]': password,
             'user[remember_me]': 0
         }
         self.session.post(wanikani_login, data=self.login_data)
 
 
 class Requests:
-    def __init__(self, username='', password=''):
-        if username == '':
-            with open(os.path.join('cred', 'login.json')) as f:
-                login = json.load(f)
-        else:
-            login = {
-                'username': username,
-                'password': password
-            }
+    def __init__(self, username=None, password=''):
+        if username is None:
+            username = os.environ['USERNAME']
+            password = os.environ['PASSWORD']
 
         community_login = 'https://community.wanikani.com/session/sso'
         wanikani_login = 'https://www.wanikani.com/login'
@@ -97,8 +81,8 @@ class Requests:
         self.login_data = {
             'utf8': "✓",
             'authenticity_token': self.auth_token,
-            'user[login]': login['username'],
-            'user[password]': login['password'],
+            'user[login]': username,
+            'user[password]': password,
             'user[remember_me]': 0
         }
         self.session.post(wanikani_login, data=self.login_data)

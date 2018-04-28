@@ -1,5 +1,11 @@
 # How to use WaniKaniTools
 
+[![Build Status](https://travis-ci.org/patarapolw/WaniKaniTools.svg?branch=master)](https://travis-ci.org/patarapolw/WaniKaniTools)
+[![PyPI version shields.io](https://img.shields.io/pypi/v/WaniKaniTools.svg)](https://pypi.python.org/pypi/WaniKaniTools/)
+[![PyPI license](https://img.shields.io/pypi/l/WaniKaniTools.svg)](https://pypi.python.org/pypi/WaniKaniTools/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/WaniKaniTools.svg)](https://pypi.python.org/pypi/WaniKaniTools/)
+[![PyPI status](https://img.shields.io/pypi/status/WaniKaniTools.svg)](https://pypi.python.org/pypi/WaniKaniTOols/)
+
 The following operations are supported by WaniKaniTools
 
 * API v1 wrapper
@@ -7,7 +13,7 @@ The following operations are supported by WaniKaniTools
 * Web login, and community login using `requests`
 * Web login using `Chrome / Firefox` and able to both `execute_script()` and `click()` buttons accordingly
 
-Sample working scripts are in `example/`
+Sample working scripts are in `example/`. See also `tests/`.
 
 ## Installation
 
@@ -29,7 +35,7 @@ resource = (
     'kanji',
     'vocabulary'
 )
-api_v1 = api.v1(put_your_api_v1_key_here)
+api_v1 = api.APIv1(put_your_api_v1_key_here)
 result = api_v1.GET(resource[2])['requested_information'] # Output is Python dictionary
 ```
 
@@ -51,7 +57,7 @@ resource_v2 = (
     'level_progressions',
     'resets'
 )
-api_v2 = api.v2(put_your_api_v2_key_here)
+api_v2 = api.APIv2(put_your_api_v2_key_here)
 result = api_v2.GET(resource_v2[1]) # Output is Python dictionary
 ```
 
@@ -60,7 +66,7 @@ result = api_v2.GET(resource_v2[1]) # Output is Python dictionary
 ```python
 from WaniKaniTools import api
 
-api_v2 = api.v2(put_your_api_v2_key_here)
+api_v2 = api.APIv2(put_your_api_v2_key_here)
 result = api_v2.GET('subjects')
 
 while True:
@@ -94,8 +100,8 @@ while True:
 This is possible for most operations, including Discourse API, Burn Manager.
 
 ```python
-from WaniKaniTools.website import login
-s = login.Requests(your_username, your_password).session
+from WaniKaniTools.login import Requests
+s = Requests(your_username, your_password).session
 ```
 
 ### Web login and execute script
@@ -103,8 +109,8 @@ s = login.Requests(your_username, your_password).session
 The operations supported here are the same as `selenium-webdriver`. Default uses Firefox's Geckodriver.
 
 ```python
-from WaniKaniTools.website import login
+from WaniKaniTools.login import Webdriver
 
-with login.Webdriver(your_username, your_password) as w:
+with Webdriver(your_username, your_password) as w:
     w.driver.execute_script(put_your_javascript_here)
 ```

@@ -1,7 +1,12 @@
+import pytest
+import os
+
+import tests
 from WaniKaniTools.community import Discourse
 
 
-if __name__ == '__main__':
+@pytest.mark.skipif('TRAVIS' in os.environ, reason='no credential specified')
+def test_community():
     board = Discourse()
 
     id = 10
@@ -23,3 +28,7 @@ if __name__ == '__main__':
     )
 
     print(board.GET('users/polv'))
+
+
+if __name__ == '__main__':
+    test_community()

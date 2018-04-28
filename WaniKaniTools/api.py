@@ -3,12 +3,10 @@ import json
 import os
 
 
-class v1:
+class APIv1:
     def __init__(self, apiKey=None):
         if apiKey is None:
-            with open(os.path.join('cred', 'key.json')) as f:
-                apiKey = json.load(f)['v1']
-
+            apiKey = os.environ['API_V1']
         self.apiKey = apiKey
 
     def GET(self, resource, argument='', callback=None):
@@ -17,12 +15,10 @@ class v1:
         return json.loads(r.text)
 
 
-class v2:
+class APIv2:
     def __init__(self, apiKey=None):
         if apiKey is None:
-            with open(os.path.join('cred', 'key.json')) as f:
-                apiKey = json.load(f)['v2']
-
+            apiKey = os.environ['API_V2']
         HEADERS = {'Authorization': 'Bearer {}'.format(apiKey)}
 
         with requests.Session() as self.session:

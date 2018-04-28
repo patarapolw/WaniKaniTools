@@ -1,9 +1,9 @@
 import jaconv
-from WaniKaniTools import api
+from WaniKaniTools.api import APIv2
 
 
 if __name__ == '__main__':
-    api_v2 = api.v2()
+    api_v2 = APIv2()
     result = api_v2.GET('subjects', params={'types':'vocabulary'})
 
     # print(json.dumps(result, indent=4))

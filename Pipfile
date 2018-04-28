@@ -11,6 +11,7 @@ jaconv = "*"
 
 [dev-packages]
 pytest = "*"
+requests-html = "*"
 
 [requires]
 python_version = "3.6"

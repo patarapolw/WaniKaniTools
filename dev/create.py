@@ -1,13 +1,12 @@
-import os
+from WaniKaniTools.api import APIv2
+from WaniKaniTools.dir import database_path
 
-if __name__ == '__main__':
-    os.chdir('..')
-    from WaniKaniTools import api
 
-    api_v2 = api.v2()
+def create_id_txt(path=database_path('id.txt')):
+    api_v2 = APIv2()
     result = api_v2.GET('subjects')
 
-    with open(os.path.join('database','id.txt'),'w') as fout:
+    with open(path,'w') as fout:
         while True:
             for data in result['data']:
                 meaning_array = []

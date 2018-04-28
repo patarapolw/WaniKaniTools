@@ -1,5 +1,5 @@
-from WaniKaniTools.website.login import Requests
-from WaniKaniTools import chars2ids
+from WaniKaniTools.login import Requests
+from WaniKaniTools.utils import chars2ids
 
 if __name__ == '__main__':
     to_resurrect = ['人口']
@@ -12,4 +12,3 @@ if __name__ == '__main__':
                 .find('meta[name=csrf-token]', first=True).attrs['content']
         }
         s.post('https://www.wanikani.com/assignments/{}/burn'.format(id), data=data)
-
