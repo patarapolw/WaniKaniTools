@@ -4,7 +4,8 @@ import pytest
 import tests
 from WaniKaniTools.api import APIv1, APIv2
 
-api_v2 = APIv2()
+if 'TRAVIS' not in os.environ:
+    api_v2 = APIv2()
 
 
 @pytest.mark.skipif('TRAVIS' in os.environ, reason='no credential specified')
